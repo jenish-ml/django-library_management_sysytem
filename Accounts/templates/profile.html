@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Profile: {{ user.username }}</h2>
+<p>Email: {{ user.email }}</p>
+<p>Role: {{ user.role }}</p>
+<a href="{% url 'edit_profile' %}" class="btn btn-secondary">Edit Profile</a>
+
+<h3 class="mt-4">Currently Borrowed Books</h3>
+<table class="table">
+    <tr>
+        <th>Book</th>
+        <th>Issue Date</th>
+        <th>Due Date</th>
+        <th>Action</th>
+    </tr>
+    {% for borrow in borrowed_books %}
+    <tr>
+        <td>{{ borrow.book.title }}</td>
+        <td>{{ borrow.issue_date }}</td>
+        <td>{{ borrow.due_date }}</td>
+        <td><a href="{% url 'return_book' borrow.id %}" class="btn btn-sm btn-warning">Return</a></td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No books borrowed.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

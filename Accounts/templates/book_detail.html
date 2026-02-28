@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ book.title }}</h2>
+<p>Author: {{ book.author }}</p>
+<p>ISBN: {{ book.isbn }}</p>
+<p>Category: {{ book.category.name }}</p>
+<p>Available Copies: {{ book.available_copies }} / {{ book.total_copies }}</p>
+{% if user.is_authenticated and user.role == 'MEMBER' and book.available_copies > 0 %}
+    <a href="{% url 'issue_book' book.id %}" class="btn btn-success">Borrow</a>
+{% endif %}
+<a href="{% url 'book_list' %}" class="btn btn-secondary">Back</a>
+{% endblock %}
